@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import ResponsiveAppBar from "./components/common/ResponsiveAppBar";
+import { Routes, BrowserRouter, Route } from "react-router-dom";
+import AddItem from "./components/items/AddItems";
+import ViewAllItems from "./components/items/ViewAllItems";
+import ViewItems_Farmers from "./components/items/ViewItems_Farmers";
+import UpdateItem from "./components/items/UpdateItem";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <style>{"body { background-color: #f1f3f0; }"}</style>
+      <ResponsiveAppBar />
+
+      <BrowserRouter>
+        {/* routes */}
+        <Routes>
+          <Route path="/farmer/addItem" element={<AddItem />}></Route>
+          <Route path="/allItems" element={<ViewAllItems />}></Route>
+          <Route path="/farmer/items" element={<ViewItems_Farmers />}></Route>
+
+          <Route
+            path="/farmer/items/update/:id"
+            element={<UpdateItem />}
+          ></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

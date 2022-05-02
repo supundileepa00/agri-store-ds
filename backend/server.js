@@ -29,3 +29,11 @@ connection.once("open", () => {
 app.listen(PORT, () => {
   console.log(`Server Running on PORT : ${PORT}`);
 });
+
+//routes
+
+const itemRouter = require("./routes/item");
+app.use("/agri/items", itemRouter);
+
+const loginRouter = require("./routes/logins");
+app.use("/agri/logins", loginRouter);
