@@ -111,7 +111,13 @@ function ViewAllItems() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button variant="outlined" startIcon={<AddShoppingCartIcon />}>
+              <Button
+                variant="outlined"
+                startIcon={<AddShoppingCartIcon />}
+                style={{
+                  color: "#22b14c",
+                }}
+              >
                 Add to Cart
               </Button>
             </CardActions>

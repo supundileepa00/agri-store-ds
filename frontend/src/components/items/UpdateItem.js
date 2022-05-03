@@ -124,8 +124,8 @@ function UpdateItem() {
                   variant="outlined"
                   placeholder="Price"
                   required
+                  min={0}
                   value={price}
-                  fullWidth
                   onChange={(e) => {
                     setPrice(e.target.value);
                   }}
@@ -150,11 +150,11 @@ function UpdateItem() {
                   color="primary"
                   disabled={loading}
                 >
-                  Add Item
+                  Update Item
                 </Button>
                 {showText ? (
                   <Typography variant="subtitle1" color="#00e676">
-                    Details Added
+                    Details Updated
                   </Typography>
                 ) : null}
                 {loading ? <Loader /> : null}

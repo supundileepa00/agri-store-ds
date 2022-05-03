@@ -104,44 +104,42 @@ router.route("/getUserItems/:id").get(async (req, res) => {
 });
 
 //update item
-router
-  .route("/update/:id")
-  .put(upload.single("itemImage"), async (req, res) => {
-    try {
-      let oldItem = await Item.findById(req.params.id);
+router.route("/update/:id").put(upload.single("image"), async (req, res) => {
+  try {
+    let oldItem = await Item.findById(req.params.id);
 
-      await cloudinary.uploader.destroy(oldItem.cloudinaryID, {
-        folder: "agri-system-files/",
-      });
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: "agri-system-files/",
-      });
-      let itemID = req.params.id;
+    await cloudinary.uploader.destroy(oldItem.cloudinaryID, {
+      folder: "agri-system-files/",
+    });
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "agri-system-files/",
+    });
+    let itemID = req.params.id;
 
-      const id = req.body.id;
-      const userID = req.body.userID;
-      const name = req.body.name;
-      const description = req.body.description;
-      const postedDate = Date();
-      const price = req.body.price;
-      const image = result.secure_url;
-      const cloudinaryID = result.public_id;
+    const id = req.body.id;
+    const userID = req.body.userID;
+    const name = req.body.name;
+    const description = req.body.description;
+    const postedDate = Date();
+    const price = req.body.price;
+    const image = result.secure_url;
+    const cloudinaryID = result.public_id;
 
-      const updateItem = {
-        id,
-        name,
-        description,
-        postedDate,
-        image,
-        price,
-        cloudinaryID,
-      };
-      const update = await Item.findByIdAndUpdate(itemID, updateItem);
-      res.status(200).send({ status: "Item Details Updated" });
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({ status: "Error while updating Data" });
-    }
-  });
+    const updateItem = {
+      id,
+      name,
+      description,
+      postedDate,
+      image,
+      price,
+      cloudinaryID,
+    };
+    const update = await Item.findByIdAndUpdate(itemID, updateItem);
+    res.status(200).send({ status: "Item Details Updated" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: "Error while updating Data" });
+  }
+});
 
 module.exports = router;

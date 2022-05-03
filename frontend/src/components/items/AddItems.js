@@ -88,7 +88,7 @@ function AddItem() {
                   required
                   multiline
                   inputProps={{ maxLength: 100 }}
-                  erorText="Maximum number of characters enterted"
+                  erortext="Maximum number of characters enterted"
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
@@ -101,7 +101,7 @@ function AddItem() {
                   variant="outlined"
                   placeholder="Price"
                   required
-                  fullWidth
+                  min="0"
                   onChange={(e) => {
                     setPrice(e.target.value);
                   }}

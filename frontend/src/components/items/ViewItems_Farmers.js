@@ -140,7 +140,12 @@ function ViewItems_Farmers() {
                 />
               </center>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  style={{ fontWeight: 500, color: "#A3A3A3" }}
+                >
                   {item.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -150,14 +155,20 @@ function ViewItems_Farmers() {
                   gutterBottom
                   variant="h6"
                   component="div"
-                  style={{ fontWeight: 700 }}
+                  style={{ fontWeight: 700, color: "#686965" }}
                 >
                   Price : {item.price} LKR
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button variant="outlined" startIcon={<AddShoppingCartIcon />}>
+              <Button
+                variant="outlined"
+                startIcon={<AddShoppingCartIcon />}
+                style={{
+                  color: "#22b14c",
+                }}
+              >
                 Add to Cart
               </Button>
             </CardActions>
