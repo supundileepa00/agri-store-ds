@@ -92,6 +92,7 @@ router.route("/getUserItems/:id").get(async (req, res) => {
   let id = req.params.id;
 
   const item = await Item.find({ userID: id })
+
     .then((items) => {
       res.status(200).send({ status: "This User Items Details", items });
     })

@@ -18,8 +18,13 @@ function ViewAllItems() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
 
+  //user id -- taken from localStorage
+  //use this for adding items to cart
+  const [userID, setUserID] = useState("");
+
   useEffect(() => {
-    function getTemplates() {
+    function getItems() {
+      setUserID(localStorage.getItem("userID"));
       axios
         .get("http://localhost:5500/agri/items")
         .then((res) => {
@@ -30,7 +35,7 @@ function ViewAllItems() {
           console.log(err);
         });
     }
-    getTemplates();
+    getItems();
   }, []);
 
   const filterItems = items.filter((item) =>
@@ -40,29 +45,36 @@ function ViewAllItems() {
   return (
     <div>
       {/* <Container> */}
+
       <Grid
         container
         direction="row"
         justifyContent="flex-start"
         alignItems="flex-start"
         spacing={10}
-        sx={{ mt: 3, ml: 3 }}
+        sx={{ mt: 10, ml: 3 }}
       >
-        <Typography variant="h3" component="h3">
-          Store Items
+        <Typography
+          variant="h4"
+          component="h3"
+          style={{ fontWeight: 700, color: "#686965" }}
+        >
+          All Items
         </Typography>
       </Grid>
       {/* </Container> */}
       <center>
-        <SearchIcon />
-        <TextField
-          id="outlined-basic"
-          label="Search Your Items Here"
-          size="small"
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-        />
+        <div>
+          <SearchIcon />
+          <TextField
+            id="outlined-basic"
+            label="Search Your Items Here"
+            size="small"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
+        </div>
       </center>
       <Grid
         container
@@ -83,7 +95,7 @@ function ViewAllItems() {
             <CardActionArea>
               <center>
                 <Avatar
-                  alt="Remy Sharp"
+                  alt="Item Image"
                   src={item.image}
                   sx={{ width: 170, height: 170 }}
                 />

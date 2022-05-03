@@ -77,7 +77,7 @@ function UpdateItem() {
     <div>
       {/* <ResponsiveAppBar /> */}
       <Container>
-        <Paper elevation={7}>
+        <Paper elevation={7} sx={{ mt: 20 }}>
           <Box sx={{ m: 5 }}>
             <br></br>
             <h2>Update Details of an Item</h2>
@@ -147,8 +147,10 @@ function UpdateItem() {
                 <Button
                   type="submit"
                   variant="contained"
-                  color="primary"
                   disabled={loading}
+                  style={{
+                    backgroundColor: "#22b14c",
+                  }}
                 >
                   Update Item
                 </Button>

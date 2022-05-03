@@ -36,7 +36,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static" style={{ background: "#22b14c" }}>
+    <AppBar position="fixed" style={{ background: "#22b14c" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

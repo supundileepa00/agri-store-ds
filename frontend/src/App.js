@@ -6,11 +6,14 @@ import AddItem from "./components/items/AddItems";
 import ViewAllItems from "./components/items/ViewAllItems";
 import ViewItems_Farmers from "./components/items/ViewItems_Farmers";
 import UpdateItem from "./components/items/UpdateItem";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
     <div className="app">
       <style>{"body { background-color: #f1f3f0; }"}</style>
+
       <ResponsiveAppBar />
 
       <BrowserRouter>
@@ -24,6 +27,8 @@ function App() {
             path="/farmer/items/update/:id"
             element={<UpdateItem />}
           ></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

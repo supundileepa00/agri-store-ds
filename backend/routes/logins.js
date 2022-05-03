@@ -24,4 +24,39 @@ router.route("/add").post(async (req, res) => {
   }
 });
 
+//login route
+router.post("/login", async (req, res) => {
+  const user = await Login.findOne({
+    username: req.body.username,
+  });
+
+  if (!user) {
+    return { status: "error", error: "Invalid" };
+  }
+
+  const isPasswordValid = await bcrypt.compare(
+    req.body.password,
+    user.password
+  );
+
+  if (isPasswordValid) {
+    const token = jwt.sign(
+      {
+        username: user.username,
+        role: user.role,
+      },
+      "secret123"
+    );
+    return res.json({
+      status: "ok",
+      user: token,
+      role: user.role,
+      username: user.username,
+      id: user._id,
+    });
+  } else {
+    return res.json({ status: "error", user: false });
+  }
+});
+
 module.exports = router;

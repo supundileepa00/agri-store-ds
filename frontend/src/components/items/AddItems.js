@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Loader from "../loader/Loader";
 import Typography from "@mui/material/Typography";
 import Input from "@mui/material/Input";
+import { useNavigate } from "react-router-dom";
 
 function AddItem() {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,7 @@ function AddItem() {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
   const [showText, setShowText] = useState(false);
+  let navigate = useNavigate();
 
   const userID = "6270211872d0ce048dd73fb5";
 
@@ -44,6 +46,8 @@ function AddItem() {
         form.reset();
         setLoading(false);
         setShowText(true);
+
+        navigate("/farmer/items");
       })
       .catch((err) => {
         alert(err);
@@ -53,8 +57,9 @@ function AddItem() {
   return (
     <div>
       {/* <ResponsiveAppBar /> */}
+
       <Container>
-        <Paper elevation={7}>
+        <Paper elevation={7} sx={{ mt: 20 }}>
           <Box sx={{ m: 5 }}>
             <br></br>
             <h2>Add Item for Store</h2>
@@ -123,8 +128,10 @@ function AddItem() {
                 <Button
                   type="submit"
                   variant="contained"
-                  color="primary"
                   disabled={loading}
+                  style={{
+                    backgroundColor: "#22b14c",
+                  }}
                 >
                   Add Item
                 </Button>

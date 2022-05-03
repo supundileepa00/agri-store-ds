@@ -19,14 +19,16 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Stack from "@mui/material/Stack";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 function ViewItems_Farmers() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
-  const [itemID, setItemID] = useState(false);
+  const [itemID, setItemID] = useState("");
+  const [userID, setUserID] = useState("");
 
-  const userID = "6270211872d0ce048dd73fb5";
+  let navigate = useNavigate();
 
   const handleClickOpen = (id) => {
     setOpen(true);
@@ -45,7 +47,8 @@ function ViewItems_Farmers() {
   };
 
   useEffect(() => {
-    function getTemplates() {
+    setUserID(localStorage.getItem("userID"));
+    function getItems() {
       axios
         .get("http://localhost:5500/agri/items/getUserItems/" + userID)
         .then((res) => {
@@ -56,7 +59,7 @@ function ViewItems_Farmers() {
           console.log(err);
         });
     }
-    getTemplates();
+    getItems();
   }, []);
 
   const filterItems = items.filter((item) =>
@@ -72,10 +75,14 @@ function ViewItems_Farmers() {
         justifyContent="flex-start"
         alignItems="flex-start"
         spacing={10}
-        sx={{ mt: 3, ml: 3 }}
+        sx={{ mt: 10, ml: 3 }}
       >
-        <Typography variant="h3" component="h3">
-          Store Items
+        <Typography
+          variant="h4"
+          component="h3"
+          style={{ fontWeight: 700, color: "#686965" }}
+        >
+          Items Added by User
         </Typography>
       </Grid>
       {/* </Container> */}
@@ -90,6 +97,16 @@ function ViewItems_Farmers() {
           }}
         />
       </center>
+      <Button
+        variant="outlined"
+        sx={{ ml: 8 }}
+        endIcon={<AddBoxIcon />}
+        onClick={() => {
+          navigate("/farmer/addItem");
+        }}
+      >
+        Add Item To Store
+      </Button>
       <Grid
         container
         direction="row"
