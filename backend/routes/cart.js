@@ -51,20 +51,17 @@ router.route("/delete").delete(async (req, res) => {
 //delete an user's cart
 router.route("/delete/:id").delete(async (req, res) => {
   try {
-    let cartID = req.params.id;
+    let userID = req.params.id;
 
-    let cart = await Cart.findById(req.params.id);
-    console.log(cart);
-
-    await cart.remove();
-    res.json(cart);
+    await Cart.deleteMany({userID: userID});
+    res.json({ message: "Cart deleted" });
   } catch (error) {
     console.log(error);
   }
 });
 
 //get an user's cart
-router.route("/:id").get(async (req, res) => {
+router.route("/get/:id").get(async (req, res) => {
   try {
     let userID = req.params.id;
 
