@@ -6,6 +6,7 @@ import Loader from "../loader/Loader";
 import Typography from "@mui/material/Typography";
 import Input from "@mui/material/Input";
 import { useNavigate } from "react-router-dom";
+import ResponsiveAppBar from "../common/ResponsiveAppBar";
 
 function AddItem() {
   const [loading, setLoading] = useState(false);
@@ -16,15 +17,13 @@ function AddItem() {
   const [showText, setShowText] = useState(false);
   let navigate = useNavigate();
 
-  const userID = "6270211872d0ce048dd73fb5";
-
   const handleSubmit = (e) => {
     setShowText(false);
     setLoading(true);
     const formData = new FormData();
     var form = document.getElementById("form");
 
-    formData.append("userID", userID);
+    formData.append("userID", localStorage.getItem("userID"));
     formData.append("name", name);
     formData.append("image", image);
     formData.append("description", description);
@@ -56,7 +55,7 @@ function AddItem() {
 
   return (
     <div>
-      {/* <ResponsiveAppBar /> */}
+      <ResponsiveAppBar />
 
       <Container>
         <Paper elevation={7} sx={{ mt: 20 }}>

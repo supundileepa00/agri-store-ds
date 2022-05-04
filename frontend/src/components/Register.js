@@ -10,6 +10,13 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useNavigate } from "react-router-dom";
+import ResponsiveAppBarLogin from "./common/ResponsiveAppBarLogin";
+import ResponsiveAppBarRegister from "./common/ResponsiveAppBarRegister";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 function Register() {
   const [loading, setLoading] = useState(false);
@@ -18,6 +25,8 @@ function Register() {
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [open, setOpen] = useState(false);
+  const [response, setResponse] = useState("");
 
   const [showText, setShowText] = useState(false);
 
@@ -27,6 +36,10 @@ function Register() {
 
   const handleChangeRole = (event) => {
     setRole(event.target.value);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleSubmit = (e) => {
@@ -44,19 +57,18 @@ function Register() {
       axios
         .post("http://localhost:5500/agri/users/add", newLogin)
         .then((res) => {
-          console.log(res);
-          console.log("User Added!!");
+          console.log(res.data.status);
+
+          setOpen(false);
+          setLoading(false);
 
           setLoading(false);
-          setShowText(true);
+          alert("Registration Succesfull");
+          navigate("/");
         })
         .catch((err) => {
           alert(err);
         });
-
-      alert("Registration Succesfull");
-
-      navigate("/login");
     } else {
       alert("Passowrds Not Matched!!");
     }
@@ -64,7 +76,7 @@ function Register() {
 
   return (
     <div>
-      {/* <ResponsiveAppBar /> */}
+      <ResponsiveAppBarRegister />
       <center>
         <Container sx={{ mt: 15 }}>
           <Paper elevation={7} sx={{ maxWidth: 450 }}>
@@ -176,6 +188,24 @@ function Register() {
           </Paper>
         </Container>
       </center>
+      {/* Dialog */}
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Alert</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Username exists please Select new One
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Ok</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

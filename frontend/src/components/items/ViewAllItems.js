@@ -13,6 +13,7 @@ import { Grid } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
+import ResponsiveAppBar from "../common/ResponsiveAppBar";
 
 function ViewAllItems() {
   const [items, setItems] = useState([]);
@@ -29,7 +30,6 @@ function ViewAllItems() {
         .get("http://localhost:5500/agri/items")
         .then((res) => {
           setItems(res.data);
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -45,6 +45,8 @@ function ViewAllItems() {
   return (
     <div>
       {/* <Container> */}
+
+      <ResponsiveAppBar />
 
       <Grid
         container
@@ -65,7 +67,6 @@ function ViewAllItems() {
       {/* </Container> */}
       <center>
         <div>
-          <SearchIcon />
           <TextField
             id="outlined-basic"
             label="Search Your Items Here"
@@ -74,6 +75,7 @@ function ViewAllItems() {
               setSearch(e.target.value);
             }}
           />
+          <SearchIcon sx={{ mt: 1 }} />
         </div>
       </center>
       <Grid
