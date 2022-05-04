@@ -16,25 +16,24 @@ import { useNavigate } from "react-router-dom";
 
 const pages = [
   {
-    name: "Home Page",
-    link: "/allItems",
+    name: "Login",
+    link: "/",
   },
   {
-    name: "Create Account",
-    link: "/register",
+    name: "About Us",
+    link: "#",
   },
   {
     name: "Contacts Us",
     link: "#",
   },
 ];
-const settings = ["Logout"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const ResponsiveAppBar = () => {
-  const navigate = useNavigate();
-
+const ResponsiveAppBarRegister = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -59,7 +58,7 @@ const ResponsiveAppBar = () => {
             variant="h4"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" }, fontWeight: 700 }}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
             Agri Online Store
           </Typography>
@@ -109,15 +108,16 @@ const ResponsiveAppBar = () => {
             variant="h4"
             noWrap
             component="div"
-            sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-              fontWeight: 700,
-            }}
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
             Agri Online Store
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
             {pages.map((page) => (
               <Button
                 key={page}
@@ -130,42 +130,9 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open Menu">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src="avatar.png" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem
-                onClick={() => {
-                  navigate("/");
-                  localStorage.clear();
-                }}
-              >
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
+export default ResponsiveAppBarRegister;

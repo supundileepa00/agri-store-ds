@@ -14,6 +14,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
+import ResponsiveAppBarLogin from "./common/ResponsiveAppBarLogin";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -53,108 +54,114 @@ function Login() {
   };
 
   return (
-    <Container>
-      <center>
-        <Card sx={{ minWidth: 400, m: 5, p: 2, maxWidth: 500, mt: 15 }} raised>
-          <CardContent>
-            <form onSubmit={loginUser}>
-              <CssBaseline />
-              <Box
-                sx={{
-                  marginTop: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Avatar sx={{ m: 1 }}>
-                  <PersonIcon fontSize="large" />
-                </Avatar>
-                <Typography
-                  component="h1"
-                  variant="h5"
-                  style={{ fontWeight: 700, color: "#686965" }}
+    <div>
+      <ResponsiveAppBarLogin />
+      <Container>
+        <center>
+          <Card
+            sx={{ minWidth: 400, m: 5, p: 2, maxWidth: 500, mt: 15 }}
+            raised
+          >
+            <CardContent>
+              <form onSubmit={loginUser}>
+                <CssBaseline />
+                <Box
+                  sx={{
+                    marginTop: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
                 >
-                  User Login
-                </Typography>
-                <Box sx={{ mt: 1 }}>
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoFocus
-                    onChange={(e) => {
-                      setUsername(e.target.value);
-                    }}
-                  />
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
-
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    style={{
-                      backgroundColor: "#22b14c",
-                    }}
+                  <Avatar sx={{ m: 1 }}>
+                    <PersonIcon fontSize="large" />
+                  </Avatar>
+                  <Typography
+                    component="h1"
+                    variant="h5"
+                    style={{ fontWeight: 700, color: "#686965" }}
                   >
-                    Sign In
-                  </Button>
-                  <Grid container>
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="flex-end"
-                      spacing={15}
-                      sx={{ mx: 2 }}
+                    User Login
+                  </Typography>
+                  <Box sx={{ mt: 1 }}>
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="username"
+                      label="Username"
+                      name="username"
+                      autoFocus
+                      onChange={(e) => {
+                        setUsername(e.target.value);
+                      }}
+                    />
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
+
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                      style={{
+                        backgroundColor: "#22b14c",
+                      }}
                     >
-                      Do not have an account?
-                      <Link
-                        href="/register"
-                        variant="body2"
-                        style={{
-                          color: "#22b14c",
-                        }}
+                      Sign In
+                    </Button>
+                    <Grid container>
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="flex-end"
+                        spacing={15}
+                        sx={{ mx: 2 }}
                       >
-                        Register Here
-                      </Link>
-                    </Stack>
-                  </Grid>
+                        Do not have an account?
+                        <Link
+                          href="/register"
+                          variant="body2"
+                          style={{
+                            color: "#22b14c",
+                          }}
+                        >
+                          Register Here
+                        </Link>
+                      </Stack>
+                    </Grid>
+                  </Box>
                 </Box>
-              </Box>
 
-              <br />
-              <br />
+                <br />
+                <br />
 
-              <div>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  align="center"
-                >
-                  {"Copyright © "}
-                  {new Date().getFullYear()}
-                  {"."}
-                </Typography>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      </center>
-    </Container>
+                <div>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    align="center"
+                  >
+                    {"Copyright © "}
+                    {new Date().getFullYear()}
+                    {"."}
+                  </Typography>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </center>
+      </Container>
+    </div>
   );
 }
 
