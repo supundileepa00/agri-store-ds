@@ -37,3 +37,6 @@ app.use("/agri/items", itemRouter);
 
 const loginRouter = require("./routes/logins");
 app.use("/agri/users", loginRouter);
+
+const cartRouter = require("./routes/cart");
+app.use("/agri/carts", cartRouter);

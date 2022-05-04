@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const CartSchema = new Schema({
     userID: {
-        type: Schema.Types.ObjectId,
-        ref: "Login",
+        type: String,
+        required: true,
     },
     name: {
         type: String,
@@ -16,7 +16,7 @@ const CartSchema = new Schema({
         required: true,
     },
     price : {
-        type: String,
+        type: Number,
         required: true,
     },
 });

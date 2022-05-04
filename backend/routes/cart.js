@@ -36,6 +36,18 @@ router.route("/").get((req, res) => {
     });
 });
 
+//delete all carts
+router.route("/delete").delete(async (req, res) => {
+  try {
+    await Cart.deleteMany();
+    res.json({
+      message: "All carts deleted",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //delete an user's cart
 router.route("/delete/:id").delete(async (req, res) => {
   try {
