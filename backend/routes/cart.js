@@ -8,8 +8,6 @@ router.route("/add").post(async (req, res) => {
     const name = req.body.name;
     const description = req.body.description;
     const price = req.body.price;
-    const quantity = req.body.quantity;
-    const total = req.body.total;
 
     //create instance
     const newCart = new Cart({
@@ -17,8 +15,6 @@ router.route("/add").post(async (req, res) => {
       name,
       description,
       price,
-      quantity,
-      total,
     });
 
     //save
@@ -69,20 +65,4 @@ router.route("/:id").get(async (req, res) => {
   }
 });
 
-//update an user's cart
-router.route("/update/:id").put(async (req, res) => {
-  try {
-    let cartID = req.params.id;
-
-    let cart = await Cart.findById(cartID);
-    console.log(cart);
-
-    cart.quantity = req.body.quantity;
-    cart.total = req.body.total;
-
-    await cart.save();
-    res.json(cart);
-  } catch (error) {
-    console.log(error);
-  }
-});
+module.exports = router;
