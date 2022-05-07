@@ -14,28 +14,34 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import ResponsiveAppBar from "../common/ResponsiveAppBar";
+import { Link, useNavigate } from "react-router-dom";
 
 function ViewAllItems() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
+  let navigate = useNavigate();
 
   //user id -- taken from localStorage
   //use this for adding items to cart
   const [userID, setUserID] = useState("");
 
   useEffect(() => {
-    function getItems() {
-      setUserID(localStorage.getItem("userID"));
-      axios
-        .get("http://localhost:5500/agri/items")
-        .then((res) => {
-          setItems(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (localStorage.getItem("token")) {
+      function getItems() {
+        setUserID(localStorage.getItem("userID"));
+        axios
+          .get("http://localhost:5500/agri/items")
+          .then((res) => {
+            setItems(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      getItems();
+    } else {
+      navigate("/notFound");
     }
-    getItems();
   }, []);
 
   const filterItems = items.filter((item) =>
@@ -69,7 +75,7 @@ function ViewAllItems() {
         <div>
           <TextField
             id="outlined-basic"
-            label="Search Your Items Here"
+            label="Search Items Here"
             size="small"
             onChange={(e) => {
               setSearch(e.target.value);

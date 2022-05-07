@@ -19,7 +19,7 @@ function UpdateItem() {
   let navigate = useNavigate();
   const [currentItem, setCurrentItem] = useState({});
 
-  const userID = "6270211872d0ce048dd73fb5";
+  // const userID = "6270211872d0ce048dd73fb5";
 
   useEffect(() => {
     axios
@@ -43,7 +43,7 @@ function UpdateItem() {
     const formData = new FormData();
     var form = document.getElementById("form");
 
-    formData.append("userID", userID);
+    formData.append("userID", localStorage.getItem("userID"));
     formData.append("name", name);
     formData.append("image", image);
     formData.append("description", description);

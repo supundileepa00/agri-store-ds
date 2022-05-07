@@ -49,22 +49,26 @@ function ViewItems_Farmers() {
   };
 
   useEffect(() => {
-    function getItems() {
-      axios
-        .get(
-          "http://localhost:5500/agri/items/getUserItems/" +
-            localStorage.getItem("userID")
-        )
-        .then((res) => {
-          setItems(res.data.items);
-          setUserID(localStorage.getItem("userID"));
-          console.log(userID);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (localStorage.getItem("token")) {
+      function getItems() {
+        axios
+          .get(
+            "http://localhost:5500/agri/items/getUserItems/" +
+              localStorage.getItem("userID")
+          )
+          .then((res) => {
+            setItems(res.data.items);
+            setUserID(localStorage.getItem("userID"));
+            console.log(userID);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      getItems();
+    } else {
+      navigate("/notFound");
     }
-    getItems();
   }, []);
 
   const filterItems = items.filter((item) =>
