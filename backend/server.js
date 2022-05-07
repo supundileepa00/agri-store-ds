@@ -47,7 +47,3 @@ app.use("/agri/paymentService/mobile", paymentServiceMobile);
 
 const deliveryService = require("./services/deliveryService");
 app.use("/agri/deliveryService", deliveryService);
-
-const cartRouter = require("./routes/cart");
-app.use("/agri/carts", cartRouter);
-
