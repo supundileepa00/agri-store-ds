@@ -8,8 +8,6 @@ router.route("/add").post(async (req, res) => {
     const name = req.body.name;
     const description = req.body.description;
     const price = req.body.price;
-    const quantity = req.body.quantity;
-    const total = req.body.total;
 
     //create instance
     const newCart = new Cart({
@@ -17,8 +15,6 @@ router.route("/add").post(async (req, res) => {
       name,
       description,
       price,
-      quantity,
-      total,
     });
 
     //save
@@ -40,23 +36,32 @@ router.route("/").get((req, res) => {
     });
 });
 
+//delete all carts
+router.route("/delete").delete(async (req, res) => {
+  try {
+    await Cart.deleteMany();
+    res.json({
+      message: "All carts deleted",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //delete an user's cart
 router.route("/delete/:id").delete(async (req, res) => {
   try {
-    let cartID = req.params.id;
+    let userID = req.params.id;
 
-    let cart = await Cart.findById(req.params.id);
-    console.log(cart);
-
-    await cart.remove();
-    res.json(cart);
+    await Cart.deleteMany({userID: userID});
+    res.json({ message: "Cart deleted" });
   } catch (error) {
     console.log(error);
   }
 });
 
 //get an user's cart
-router.route("/:id").get(async (req, res) => {
+router.route("/get/:id").get(async (req, res) => {
   try {
     let userID = req.params.id;
 
@@ -69,20 +74,4 @@ router.route("/:id").get(async (req, res) => {
   }
 });
 
-//update an user's cart
-router.route("/update/:id").put(async (req, res) => {
-  try {
-    let cartID = req.params.id;
-
-    let cart = await Cart.findById(cartID);
-    console.log(cart);
-
-    cart.quantity = req.body.quantity;
-    cart.total = req.body.total;
-
-    await cart.save();
-    res.json(cart);
-  } catch (error) {
-    console.log(error);
-  }
-});
+module.exports = router;
