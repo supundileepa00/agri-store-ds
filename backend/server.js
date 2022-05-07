@@ -38,5 +38,16 @@ app.use("/agri/items", itemRouter);
 const loginRouter = require("./routes/logins");
 app.use("/agri/users", loginRouter);
 
+//services
+const paymentService = require("./services/paymentService");
+app.use("/agri/paymentService", paymentService);
+
+const paymentServiceMobile = require("./services/paymentService_mobile");
+app.use("/agri/paymentService/mobile", paymentServiceMobile);
+
+const deliveryService = require("./services/deliveryService");
+app.use("/agri/deliveryService", deliveryService);
+
 const cartRouter = require("./routes/cart");
 app.use("/agri/carts", cartRouter);
+
