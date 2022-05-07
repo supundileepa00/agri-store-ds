@@ -17,6 +17,13 @@ function AddItem() {
   const [showText, setShowText] = useState(false);
   let navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+    } else {
+      navigate("/notFound");
+    }
+  }, []);
+
   const handleSubmit = (e) => {
     setShowText(false);
     setLoading(true);

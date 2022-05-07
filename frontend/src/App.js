@@ -9,6 +9,7 @@ import UpdateItem from "./components/items/UpdateItem";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Footer from "./components/common/footer/Footer";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
             path="/farmer/items/update/:id"
             element={<UpdateItem />}
           ></Route>
+
+          <Route path="/notFound" element={<NotFoundPage />}></Route>
         </Routes>
       </BrowserRouter>
 
