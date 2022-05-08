@@ -10,6 +10,7 @@ router.route("/add").post(async (req, res) => {
     const description = req.body.description;
     const price = req.body.price;
     const itemID = req.body.itemID;
+    const image = req.body.image;
 
     //create instance
     const newCart = new Cart({
@@ -18,6 +19,7 @@ router.route("/add").post(async (req, res) => {
       description,
       price,
       itemID,
+      image,
     });
 
     //save
@@ -64,13 +66,13 @@ router.route("/delete/:id").delete(async (req, res) => {
 });
 
 //delete an item from cart
-router.route("/delete/:id/:item").delete(async (req, res) => {
+router.route("/delete/item/:id").delete(async (req, res) => {
   try {
-    let userID = req.params.id;
-    let itemID = req.params.item;
+    let ID = req.params.id;
 
-    await Cart.deleteMany({ userID: userID, itemID: itemID });
+    await Cart.findByIdAndDelete(ID);
     res.json({ message: "Item deleted" });
+    console.log("Item deleted");
   } catch (error) {
     console.log(error);
   }
