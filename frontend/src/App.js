@@ -10,6 +10,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Footer from "./components/common/footer/Footer";
 import NotFoundPage from "./components/NotFoundPage";
+import Cart from "./components/Cart";
+import CustomizedTables from "./Table";
 
 function App() {
   return (
@@ -25,6 +27,9 @@ function App() {
           <Route path="/farmer/addItem" element={<AddItem />}></Route>
           <Route path="/allItems" element={<ViewAllItems />}></Route>
           <Route path="/farmer/items" element={<ViewItems_Farmers />}></Route>
+
+          <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/table" element={<CustomizedTables />}></Route>
 
           <Route
             path="/farmer/items/update/:id"

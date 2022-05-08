@@ -10,6 +10,7 @@ router.route("/add").post(async (req, res) => {
     const description = req.body.description;
     const price = req.body.price;
     const itemID = req.body.itemID;
+    const image = req.body.image;
 
     //create instance
     const newCart = new Cart({
@@ -18,6 +19,7 @@ router.route("/add").post(async (req, res) => {
       description,
       price,
       itemID,
+      image,
     });
 
     //save
@@ -71,6 +73,7 @@ router.route("/delete/:id/:item").delete(async (req, res) => {
 
     await Cart.deleteMany({ userID: userID, itemID: itemID });
     res.json({ message: "Item deleted" });
+    console.log("Item deleted");
   } catch (error) {
     console.log(error);
   }
