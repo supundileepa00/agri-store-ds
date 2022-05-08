@@ -72,12 +72,23 @@ export default function CustomizedTables() {
   const deleteItem = (itemID) => {
     axios
       .delete(
-        "http://localhost:5500/agri/carts/delete/" + userID + "/" + itemID
+        "http://localhost:5500/agri/carts/delete/item/" + itemID
       )
       .then((res) => {
+        Swal.fire({
+          title: "Success",
+          text: "Item Deleted",
+          icon: "error",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload(false)
+          }});
         console.log(res);
       });
   };
+
+  
 
   return (
     <TableContainer component={Paper}>
@@ -110,10 +121,10 @@ export default function CustomizedTables() {
                   variant="outlined"
                   startIcon={<DeleteIcon />}
                   onClick={()=>{
-                    deleteItem(row.itemID);
+                    deleteItem(row._id);
                   }}
                 >
-                  Delete
+                  Remove Item
                 </Button>
               </StyledTableCell>
             </StyledTableRow>

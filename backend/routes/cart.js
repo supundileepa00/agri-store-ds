@@ -66,12 +66,11 @@ router.route("/delete/:id").delete(async (req, res) => {
 });
 
 //delete an item from cart
-router.route("/delete/:id/:item").delete(async (req, res) => {
+router.route("/delete/item/:id").delete(async (req, res) => {
   try {
-    let userID = req.params.id;
-    let itemID = req.params.item;
+    let ID = req.params.id;
 
-    await Cart.deleteMany({ userID: userID, itemID: itemID });
+    await Cart.findByIdAndDelete(ID);
     res.json({ message: "Item deleted" });
     console.log("Item deleted");
   } catch (error) {
