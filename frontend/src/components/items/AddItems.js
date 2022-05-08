@@ -107,14 +107,18 @@ function AddItem() {
                 <br />
                 <br />
 
-                <Input
+                <TextField
                   type="number"
                   variant="outlined"
-                  placeholder="Price"
+                  label="Price"
+                  value={price}
                   required
-                  min="0"
                   onChange={(e) => {
-                    setPrice(e.target.value);
+                    if (e.target.value < 0) {
+                      setPrice(0);
+                    } else {
+                      setPrice(e.target.value);
+                    }
                   }}
                 />
                 <br />
