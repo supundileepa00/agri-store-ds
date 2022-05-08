@@ -11,11 +11,20 @@ import Register from "./components/Register";
 import Footer from "./components/common/footer/Footer";
 import NotFoundPage from "./components/NotFoundPage";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Cart from "./components/Cart";
 import CustomizedTables from "./Table";
 =======
 import Payment from "./components/payment/Payment";
 >>>>>>> 71ff1fc2d18d96f5c7131bb3f24d24d6c4523ea5
+=======
+
+import Payment from "./components/payment/Payment";
+
+import Cart from "./components/Cart";
+import CustomizedTables from "./Table";
+
+>>>>>>> 26458153b5da017f1bf91c0f46a7c1c83732f709
 
 function App() {
   return (
