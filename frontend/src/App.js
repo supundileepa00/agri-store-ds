@@ -10,8 +10,12 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Footer from "./components/common/footer/Footer";
 import NotFoundPage from "./components/NotFoundPage";
+
+import Payment from "./components/payment/Payment";
+
 import Cart from "./components/Cart";
 import CustomizedTables from "./Table";
+
 
 function App() {
   return (
@@ -37,6 +41,7 @@ function App() {
           ></Route>
 
           <Route path="/notFound" element={<NotFoundPage />}></Route>
+          <Route path="/payment" element={<Payment />}></Route>
         </Routes>
       </BrowserRouter>
 
