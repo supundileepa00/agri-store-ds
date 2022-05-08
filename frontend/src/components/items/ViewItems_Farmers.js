@@ -172,9 +172,9 @@ function ViewItems_Farmers() {
             <CardActionArea>
               <center>
                 <Avatar
-                  alt="Remy Sharp"
+                  alt="Item Image"
                   src={item.image}
-                  sx={{ width: 130, height: 130 }}
+                  sx={{ width: 130, height: 110 }}
                 />
               </center>
               <CardContent>
@@ -186,6 +186,10 @@ function ViewItems_Farmers() {
                 >
                   {item.name}
                 </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Date :{item.postedDate}
+                </Typography>
+                <br />
                 <Typography variant="body2" color="text.secondary">
                   {item.description}
                 </Typography>
