@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Cart = require("../models/Cart");
+const Item = require("../models/Item");
 
 //add item to cart
 router.route("/add").post(async (req, res) => {
@@ -8,6 +9,7 @@ router.route("/add").post(async (req, res) => {
     const name = req.body.name;
     const description = req.body.description;
     const price = req.body.price;
+    const itemID = req.body.itemID;
 
     //create instance
     const newCart = new Cart({
@@ -15,6 +17,7 @@ router.route("/add").post(async (req, res) => {
       name,
       description,
       price,
+      itemID,
     });
 
     //save
@@ -53,8 +56,21 @@ router.route("/delete/:id").delete(async (req, res) => {
   try {
     let userID = req.params.id;
 
-    await Cart.deleteMany({userID: userID});
+    await Cart.deleteMany({ userID: userID });
     res.json({ message: "Cart deleted" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//delete an item from cart
+router.route("/delete/:id/:item").delete(async (req, res) => {
+  try {
+    let userID = req.params.id;
+    let itemID = req.params.item;
+
+    await Cart.deleteMany({ userID: userID, itemID: itemID });
+    res.json({ message: "Item deleted" });
   } catch (error) {
     console.log(error);
   }
