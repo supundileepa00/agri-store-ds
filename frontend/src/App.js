@@ -11,8 +11,8 @@ import Register from "./components/Register";
 import Footer from "./components/common/footer/Footer";
 import NotFoundPage from "./components/NotFoundPage";
 import Payment from "./components/payment/Payment";
-import Cart from "./components/Cart";
-import CustomizedTables from "./Table";
+import Cart from "./components/cart/Cart";
+import CustomizedTables from "./components/cart/Table";
 
 function App() {
   return (
