@@ -2,16 +2,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import ResponsiveAppBar from "./common/ResponsiveAppBar";
+import ResponsiveAppBar from "../common/ResponsiveAppBar";
 import { Card, CardContent, Container, Typography } from "@mui/material";
-import CustomizedTables from "../Table";
+import CustomizedTables from "./Table";
+import ToPay from "./ToPay";
 
 function Cart() {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [userID, setUserID] = useState("");
 
+  let navigate = useNavigate();
+
   useEffect(() => {
+    if(localStorage.getItem("token")){
     function getCart() {
       setUserID(localStorage.getItem("userID"));
       axios
@@ -26,6 +30,9 @@ function Cart() {
         });
     }
     getCart(); //getCart();
+    }else{
+      navigate("/notFound");
+    }
   }, []); //useEffect
 
   const deleteCart = (id) => {
@@ -64,6 +71,7 @@ function Cart() {
           <Card sx={{ minWidth: 1000, m: 5, p: 3, maxWidth: 1500 }} raised>
             <CardContent>
               <CustomizedTables />
+              <ToPay/>
             </CardContent>
           </Card>
         </center>
