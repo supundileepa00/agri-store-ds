@@ -40,7 +40,6 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [cart, setCart] = useState([]);
-  // const [badge, setBadge] = useState(0);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -56,23 +55,6 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  // useEffect(() => {
-  //   function getCart() {
-  //     axios
-  //       .get(
-  //         "http://localhost:5500/agri/carts/get/" +
-  //           localStorage.getItem("userID")
-  //       )
-  //       .then((res) => {
-  //         setBadge(res.data.length);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  //   getCart();
-  // }, []);
 
   return (
     <AppBar position="fixed" style={{ background: "#22b14c" }}>
@@ -161,9 +143,7 @@ const ResponsiveAppBar = () => {
               navigate("/cart");
             }}
           >
-            <Badge badgeContent={4} color="error">
-              <ShoppingCartIcon />
-            </Badge>
+            <ShoppingCartIcon />
           </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>

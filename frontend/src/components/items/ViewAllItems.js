@@ -202,7 +202,7 @@ function ViewAllItems() {
                   component="div"
                   style={{ fontWeight: 700, color: "#686965" }}
                 >
-                  Price : Rs. {item.price}
+                  Price : Rs. {parseInt(item.price).toLocaleString("en-US")}
                 </Typography>
               </CardContent>
             </CardActionArea>
