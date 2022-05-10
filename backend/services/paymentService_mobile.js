@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+//payment service mobile
 router.route("/pay").post((req, res) => {
   const mobileNumber = req.body.mobileNumber;
   const pin = req.body.pin;
@@ -7,7 +8,7 @@ router.route("/pay").post((req, res) => {
 
   if (String(pin).length == 6) {
     res.status(202).json({
-      paymentStatus: "success",
+      paymentStatus: "success : email & sms sent",
       amount: amount,
       MobileNumber: mobileNumber,
     });

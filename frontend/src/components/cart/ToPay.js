@@ -51,8 +51,9 @@ export default function ToPay() {
           primaryTypographyProps={{ fontSize: 36, fontWeight: "bold" }}
           primary="Total"
           secondaryTypographyProps={{ fontSize: 36, fontWeight: "bold" }}
-          secondary={total}
+          secondary={"Rs. " + total}
         />
+
         <Button
           color="success"
           variant="contained"

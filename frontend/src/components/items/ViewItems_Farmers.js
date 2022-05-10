@@ -79,22 +79,24 @@ function ViewItems_Farmers() {
     <div>
       <ResponsiveAppBar />
       {/* <Container> */}
+      <center>
+        <Typography
+          variant="h4"
+          component="h3"
+          sx={{ mt: 13 }}
+          style={{ fontWeight: 600, color: "#686965" }}
+        >
+          Farmer's Home Page
+        </Typography>
+      </center>
       <Grid
         container
         direction="row"
         justifyContent="flex-start"
         alignItems="flex-start"
         spacing={10}
-        sx={{ mt: 13, ml: 3 }}
-      >
-        <Typography
-          variant="h4"
-          component="h3"
-          style={{ fontWeight: 600, color: "#686965" }}
-        >
-          Farmer's Home Page
-        </Typography>
-      </Grid>
+        sx={{ mt: 2, ml: 3 }}
+      ></Grid>
       {/* </Container> */}
       <center>
         <TextField
@@ -199,7 +201,7 @@ function ViewItems_Farmers() {
                   component="div"
                   style={{ fontWeight: 700, color: "#686965" }}
                 >
-                  Price : {item.price} LKR
+                  Price : Rs. {item.price}
                 </Typography>
               </CardContent>
             </CardActionArea>

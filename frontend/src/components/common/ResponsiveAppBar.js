@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const pages = [
   {
@@ -130,6 +131,16 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
+          <IconButton
+            size="large"
+            color="inherit"
+            sx={{ mr: 4 }}
+            onClick={() => {
+              navigate("/cart");
+            }}
+          >
+            <ShoppingCartIcon />
+          </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open Menu">

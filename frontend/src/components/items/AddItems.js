@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import Input from "@mui/material/Input";
 import { useNavigate } from "react-router-dom";
 import ResponsiveAppBar from "../common/ResponsiveAppBar";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function AddItem() {
   const [loading, setLoading] = useState(false);
@@ -68,6 +70,17 @@ function AddItem() {
         <Paper elevation={7} sx={{ mt: 20 }}>
           <Box sx={{ m: 5 }}>
             <br></br>
+            <IconButton
+              color="warning"
+              aria-label="upload picture"
+              component="span"
+              size="large"
+              onClick={() => {
+                navigate("/farmer/items");
+              }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
             <h2>Add Item for Store</h2>
 
             <Grid>

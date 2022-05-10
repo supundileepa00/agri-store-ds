@@ -34,6 +34,10 @@ router.route("/add").post(async (req, res) => {
 
 //login route
 router.post("/login", async (req, res) => {
+  // const existUser = Login.exists({
+  //   username: req.body.username,
+  // });
+
   const user = await Login.findOne({
     username: req.body.username,
   });

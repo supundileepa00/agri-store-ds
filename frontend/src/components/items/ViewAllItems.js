@@ -15,6 +15,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import ResponsiveAppBar from "../common/ResponsiveAppBar";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function ViewAllItems() {
   const [items, setItems] = useState([]);
@@ -48,11 +49,57 @@ function ViewAllItems() {
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const addItemToCart = (item) => {
+    let userID = localStorage.getItem("userID");
+    let name = item.name;
+    let description = item.description;
+    let price = Number(item.price);
+    let itemID = item._id;
+    let image = item.image;
+
+    const cartItem = {
+      userID,
+      name,
+      description,
+      price,
+      itemID,
+      image,
+    };
+
+    console.log(cartItem);
+
+    axios
+      .post("http://localhost:5500/agri/carts/add", cartItem)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: "Success",
+          text: "Item Added to Cart!!",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       {/* <Container> */}
 
       <ResponsiveAppBar />
+
+      <center>
+        <Typography
+          variant="h4"
+          component="h3"
+          style={{ fontWeight: 700, color: "#686965" }}
+          sx={{ mt: 10 }}
+        >
+          All Items
+        </Typography>
+      </center>
 
       <Grid
         container
@@ -60,16 +107,8 @@ function ViewAllItems() {
         justifyContent="flex-start"
         alignItems="flex-start"
         spacing={10}
-        sx={{ mt: 10, ml: 3 }}
-      >
-        <Typography
-          variant="h4"
-          component="h3"
-          style={{ fontWeight: 700, color: "#686965" }}
-        >
-          All Items
-        </Typography>
-      </Grid>
+        sx={{ mt: 4, ml: 3 }}
+      ></Grid>
       {/* </Container> */}
       <center>
         <div>
@@ -126,7 +165,7 @@ function ViewAllItems() {
                   component="div"
                   style={{ fontWeight: 700, color: "#686965" }}
                 >
-                  Price : {item.price} LKR
+                  Price : Rs. {item.price}
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -136,6 +175,9 @@ function ViewAllItems() {
                 startIcon={<AddShoppingCartIcon />}
                 style={{
                   color: "#22b14c",
+                }}
+                onClick={() => {
+                  addItemToCart(item);
                 }}
               >
                 Add to Cart

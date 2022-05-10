@@ -3,6 +3,7 @@ const Item = require("../models/Item");
 const cloudinary = require("../utils/cloudinary");
 const upload = require("../utils/multer");
 
+//additem to store
 router.route("/add").post(upload.single("image"), async (req, res) => {
   try {
     await cloudinary.image;

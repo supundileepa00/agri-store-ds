@@ -14,8 +14,8 @@ import Swal from "sweetalert2";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: "#e4eaeb",
+    color: theme.palette.common.black,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -71,9 +71,7 @@ export default function CustomizedTables() {
 
   const deleteItem = (itemID) => {
     axios
-      .delete(
-        "http://localhost:5500/agri/carts/delete/item/" + itemID
-      )
+      .delete("http://localhost:5500/agri/carts/delete/item/" + itemID)
       .then((res) => {
         Swal.fire({
           title: "Success",
@@ -82,45 +80,48 @@ export default function CustomizedTables() {
           confirmButtonText: "OK",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.reload(false)
-          }});
+            window.location.reload(false);
+          }
+        });
         console.log(res);
       });
   };
-
-  
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Image</StyledTableCell>
+            <StyledTableCell align="center">Image</StyledTableCell>
             <StyledTableCell align="right">Name</StyledTableCell>
-            <StyledTableCell align="right">Description</StyledTableCell>
+            <StyledTableCell align="center">Description</StyledTableCell>
             <StyledTableCell align="right">Price</StyledTableCell>
-            <StyledTableCell align="right">Delete</StyledTableCell>
+            <StyledTableCell align="center">Delete</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {cart.map((row) => (
             <StyledTableRow>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell component="th" scope="row" sx={{ maxWidth: 30 }}>
                 <Avatar
                   alt="Item Image"
                   src={row.image}
                   sx={{ width: 100, height: 100 }}
                 />
               </StyledTableCell>
-              <StyledTableCell align="right">{row.name}</StyledTableCell>
-              <StyledTableCell align="right">{row.description}</StyledTableCell>
-              <StyledTableCell align="right">{row.price}</StyledTableCell>
-              <StyledTableCell align="right">
+              <StyledTableCell align="right" sx={{ maxWidth: 30 }}>
+                {row.name}
+              </StyledTableCell>
+              <StyledTableCell align="justify" sx={{ maxWidth: 100 }}>
+                {row.description}
+              </StyledTableCell>
+              <StyledTableCell align="right">Rs. {row.price}</StyledTableCell>
+              <StyledTableCell align="center">
                 <Button
                   color="error"
                   variant="outlined"
                   startIcon={<DeleteIcon />}
-                  onClick={()=>{
+                  onClick={() => {
                     deleteItem(row._id);
                   }}
                 >

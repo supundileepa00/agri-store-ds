@@ -1,5 +1,7 @@
 const router = require("express").Router();
 
+//delivery service
+//user sends data and gives response
 router.route("/").post((req, res) => {
   const name = req.body.name;
   const mobileNumber = req.body.mobileNumber;
@@ -9,6 +11,8 @@ router.route("/").post((req, res) => {
     res.status(200).json({
       delivery: "success",
       address: address,
+      name: name,
+      mobile: mobileNumber,
     });
   } else {
     res.status(404).json({
