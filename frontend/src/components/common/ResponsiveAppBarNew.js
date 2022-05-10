@@ -34,7 +34,7 @@ const pages = [
 ];
 const settings = ["Logout"];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -143,7 +143,9 @@ const ResponsiveAppBar = () => {
               navigate("/cart");
             }}
           >
-            <ShoppingCartIcon />
+            <Badge badgeContent={props.badge} color="error">
+              <ShoppingCartIcon />
+            </Badge>
           </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>

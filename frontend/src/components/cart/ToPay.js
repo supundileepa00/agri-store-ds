@@ -51,7 +51,7 @@ export default function ToPay() {
           primaryTypographyProps={{ fontSize: 36, fontWeight: "bold" }}
           primary="Total"
           secondaryTypographyProps={{ fontSize: 36, fontWeight: "bold" }}
-          secondary={"Rs. " + total.toLocaleString('en-US')}
+          secondary={"Rs. " + total.toLocaleString("en-US")}
         />
 
         <Button

@@ -21,7 +21,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Stack from "@mui/material/Stack";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import ResponsiveAppBar from "../common/ResponsiveAppBar";
+import ResponsiveAppBarNew from "../common/ResponsiveAppBarNew";
 
 function ViewItems_Farmers() {
   const [items, setItems] = useState([]);
@@ -29,6 +29,7 @@ function ViewItems_Farmers() {
   const [open, setOpen] = useState(false);
   const [itemID, setItemID] = useState("");
   const [userID, setUserID] = useState("");
+  const [badge, setBadge] = useState(0);
 
   let navigate = useNavigate();
 
@@ -47,6 +48,22 @@ function ViewItems_Farmers() {
       window.location.reload(false);
     });
   };
+  useEffect(() => {
+    function getCart() {
+      axios
+        .get(
+          "http://localhost:5500/agri/carts/get/" +
+            localStorage.getItem("userID")
+        )
+        .then((res) => {
+          setBadge(res.data.length);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    getCart();
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -77,7 +94,7 @@ function ViewItems_Farmers() {
 
   return (
     <div>
-      <ResponsiveAppBar />
+      <ResponsiveAppBarNew badge={badge} />
       {/* <Container> */}
       <center>
         <Typography
@@ -201,7 +218,7 @@ function ViewItems_Farmers() {
                   component="div"
                   style={{ fontWeight: 700, color: "#686965" }}
                 >
-                  Price : Rs. {item.price}
+                  Price : Rs. {parseInt(item.price).toLocaleString("en-US")}
                 </Typography>
               </CardContent>
             </CardActionArea>

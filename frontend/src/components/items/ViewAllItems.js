@@ -14,6 +14,8 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import ResponsiveAppBar from "../common/ResponsiveAppBar";
+import ResponsiveAppBarNew from "../common/ResponsiveAppBarNew";
+
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -21,6 +23,8 @@ function ViewAllItems() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
   let navigate = useNavigate();
+
+  const [badge, setBadge] = useState(0);
 
   //user id -- taken from localStorage
   //use this for adding items to cart
@@ -43,6 +47,23 @@ function ViewAllItems() {
     } else {
       navigate("/notFound");
     }
+  }, []);
+
+  useEffect(() => {
+    function getCart() {
+      axios
+        .get(
+          "http://localhost:5500/agri/carts/get/" +
+            localStorage.getItem("userID")
+        )
+        .then((res) => {
+          setBadge(res.data.length);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    getCart();
   }, []);
 
   const filterItems = items.filter((item) =>
@@ -77,6 +98,20 @@ function ViewAllItems() {
           text: "Item Added to Cart!!",
           icon: "success",
           confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axios
+              .get(
+                "http://localhost:5500/agri/carts/get/" +
+                  localStorage.getItem("userID")
+              )
+              .then((res) => {
+                setBadge(res.data.length);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
         });
       })
       .catch((err) => {
@@ -88,7 +123,9 @@ function ViewAllItems() {
     <div>
       {/* <Container> */}
 
-      <ResponsiveAppBar />
+      {/* <ResponsiveAppBar  /> */}
+
+      <ResponsiveAppBarNew badge={badge} />
 
       <center>
         <Typography
@@ -165,7 +202,7 @@ function ViewAllItems() {
                   component="div"
                   style={{ fontWeight: 700, color: "#686965" }}
                 >
-                  Price : Rs. {item.price}
+                  Price : Rs. {parseInt(item.price).toLocaleString("en-US")}
                 </Typography>
               </CardContent>
             </CardActionArea>

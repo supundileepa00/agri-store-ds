@@ -15,7 +15,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import ResponsiveAppBar from "../common/ResponsiveAppBar";
+import ResponsiveAppBarNew from "../common/ResponsiveAppBarNew";
 import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -82,6 +82,7 @@ export default function Payment() {
   const [total, setTotal] = useState(0);
   const [userID, setUserID] = useState("");
   const [label, setLabel] = useState("Pay by Card");
+  const [badge, setBadge] = useState(0);
 
   const navigate = useNavigate();
 
@@ -107,6 +108,23 @@ export default function Payment() {
     getCart(); //getCart();
   }, []);
 
+  useEffect(() => {
+    function getCart() {
+      axios
+        .get(
+          "http://localhost:5500/agri/carts/get/" +
+            localStorage.getItem("userID")
+        )
+        .then((res) => {
+          setBadge(res.data.length);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    getCart();
+  }, []);
+
   const payCard = () => {
     return (
       <form onSubmit={handleSubmit}>
@@ -115,14 +133,14 @@ export default function Payment() {
           variant="outlined"
           label="Card Holders Name"
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
         />
         <TextField
           type="number"
           variant="outlined"
           label="Card Number"
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
           value={cardNo}
           onChange={(e) => {
             if (e.target.value < 0) {
@@ -141,22 +159,28 @@ export default function Payment() {
             shrink: true,
           }}
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
           value={total.toLocaleString("en-US")}
         />
         <TextField
           type="date"
           variant="outlined"
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
         />
         <TextField
           type="number"
           variant="outlined"
           label="CVC"
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
+          onInput={(e) => {
+            e.target.value = Math.max(0, parseInt(e.target.value))
+              .toString()
+              .slice(0, 3);
+          }}
         />
+        <br/>
         <Button
           sx={{ p: 1.5, m: 3 }}
           color="success"
@@ -175,67 +199,72 @@ export default function Payment() {
   const payMobile = () => {
     return (
       <form onSubmit={handleSubmit}>
-                <TextField
-                  type="number"
-                  variant="outlined"
-                  label="Mobile Number"
-                  required
-                  sx={{ width: 400, mb: 2 }}
-                  value={cardNo}
-                  onChange={(e) => {
-                    if (e.target.value < 0) {
-                      setCardNo(0);
-                    } else {
-                      setCardNo(e.target.value);
-                    }
-                  }}
-                />
-                <TextField
-                  type="text"
-                  variant="outlined"
-                  label="Amount"
-                  disabled
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  required
-                  sx={{ width: 400, mb: 2 }}
-                  value={total.toLocaleString("en-US")}
-                />
+        <TextField
+          type="number"
+          variant="outlined"
+          label="Mobile Number"
+          required
+          sx={{ width: 600, mb: 2 }}
+          onInput={(e) => {
+            e.target.value = Math.max(0, parseInt(e.target.value))
+              .toString()
+              .slice(0, 10);
+          }}
+          onChange={(e) => {
+            if (e.target.value < 0) {
+              setCardNo(0);
+            } else {
+              setCardNo(e.target.value);
+            }
+          }}
+        />
 
-                <TextField
-                  type="number"
-                  variant="outlined"
-                  label="Pin"
-                  onInput={(e) => {
-                    e.target.value = Math.max(0, parseInt(e.target.value))
-                      .toString()
-                      .slice(0, 6);
-                  }}
-                  required
-                  sx={{ width: 400, mb: 2 }}
-                />
-                <Button
-                  sx={{ p: 1.5, m: 3 }}
-                  color="success"
-                  variant="contained"
-                  startIcon={<PaidIcon />}
-                  onClick={() => {
-                    navigate("/allItems");
-                  }}
-                >
-                  Pay Now
-                </Button>
-              </form>
-    )
+        <TextField
+          type="text"
+          variant="outlined"
+          label="Amount"
+          disabled
+          InputLabelProps={{
+            shrink: true,
+          }}
+          required
+          sx={{ width: 600, mb: 2 }}
+          value={total.toLocaleString("en-US")}
+        />
+        <TextField
+          type="number"
+          variant="outlined"
+          label="Pin"
+          onInput={(e) => {
+            e.target.value = Math.max(0, parseInt(e.target.value))
+              .toString()
+              .slice(0, 6);
+          }}
+          required
+          sx={{ width: 600, mb: 2 }}
+        />
+        <br/>
+        <Button
+          sx={{ p: 1.5, m: 3 }}
+          color="success"
+          variant="contained"
+          startIcon={<PaidIcon />}
+          onClick={() => {
+            navigate("/allItems");
+          }}
+        >
+          Pay Now
+        </Button>
+      </form>
+    );
   };
 
   return (
     <div>
-      <ResponsiveAppBar />
+      <ResponsiveAppBarNew badge={badge} />
       <center>
         <Container sx={{ mt: 15 }}>
-          <Paper elevation={7} sx={{ maxWidth: 450 }}>
+          <Paper elevation={7} sx={{ maxWidth: 700 }}>
             <Box sx={{ m: 4 }}>
               <br></br>
               <Typography
@@ -250,7 +279,23 @@ export default function Payment() {
                 Please enter your payment details
               </Typography>
               <br />
-              <FormGroup>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Your Name"
+                  required
+                  sx={{ width: 600, mb: 2 }}
+                />
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Your Address"
+                  required
+                  sx={{ width: 600, mb: 2 }}
+                />
+              </form>
+              <FormGroup sx={{ alignItems: "center" }}>
                 <FormControlLabel
                   id="phone"
                   control={
@@ -259,9 +304,9 @@ export default function Payment() {
                       defaultUnchecked
                       onChange={(e) => {
                         setMobile(e.target.checked);
-                        if(e.target.checked){
+                        if (e.target.checked) {
                           setLabel("Pay by Mobile");
-                        }else{
+                        } else {
                           setLabel("Pay by Card");
                         }
                         console.log(mobile);
