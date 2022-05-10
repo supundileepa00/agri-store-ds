@@ -268,7 +268,7 @@ export default function Payment() {
                 Please enter your payment details
               </Typography>
               <br />
-              <FormGroup>
+              <FormGroup sx={{alignItems: "center"}}>
                 <FormControlLabel
                   id="phone"
                   control={
