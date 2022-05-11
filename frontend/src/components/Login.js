@@ -15,6 +15,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import ResponsiveAppBarLogin from "./common/ResponsiveAppBarLogin";
+import Swal from "sweetalert2";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -48,8 +49,26 @@ function Login() {
       } else {
         console.log("Role Error");
       }
+    } else if (data.status === "no_user") {
+      Swal.fire({
+        title: "Username does not exists!!",
+        text: "Please create an account",
+        icon: "error",
+        confirmButtonText: "OK",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setUsername("");
+          setPassword("");
+        }
+      });
     } else {
-      alert("Username or Passowrd is Invalid");
+      Swal.fire({
+        title: "Incorrect Password!!",
+        text: "Please enter your password again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      setPassword("");
     }
   };
 
@@ -88,6 +107,7 @@ function Login() {
                       margin="normal"
                       required
                       fullWidth
+                      value={username}
                       id="username"
                       label="Username"
                       name="username"
@@ -100,6 +120,7 @@ function Login() {
                       margin="normal"
                       required
                       fullWidth
+                      value={password}
                       name="password"
                       label="Password"
                       type="password"
