@@ -186,7 +186,7 @@ export default function Payment() {
         <TextField
           type="month"
           variant="outlined"
-          label="Expire Date"
+          label="Month/Year"
           required
           InputLabelProps={{
             shrink: true,
