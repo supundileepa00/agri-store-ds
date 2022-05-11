@@ -182,7 +182,11 @@ export default function Payment() {
         <TextField
           type="date"
           variant="outlined"
+          label="Expire Date"
           required
+          InputLabelProps={{
+            shrink: true,
+          }}
           sx={{ width: 600, mb: 2 }}
         />
         <TextField
