@@ -96,7 +96,11 @@ export default function Payment() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    pay();
+    deleteCart();
+    goto();
+  };
 
   const handleChange = (e) => {
     setUser({
@@ -144,7 +148,7 @@ export default function Payment() {
 
   const payCard = () => {
     return (
-      <form onSubmit={handleSubmit}>
+      <div>
         <TextField
           type="text"
           variant="outlined"
@@ -156,7 +160,7 @@ export default function Payment() {
           type="number"
           variant="outlined"
           label="Card Number"
-          required
+          required="true"
           sx={{ width: 600, mb: 2 }}
           value={cardNo}
           onChange={(e) => {
@@ -180,7 +184,7 @@ export default function Payment() {
           value={"Rs. " + total.toLocaleString("en-US")}
         />
         <TextField
-          type="date"
+          type="month"
           variant="outlined"
           label="Expire Date"
           required
@@ -207,21 +211,17 @@ export default function Payment() {
           color="success"
           variant="contained"
           startIcon={<PaidIcon />}
-          onClick={() => {
-            pay();
-            deleteCart();
-            goto();
-          }}
+          type="submit"
         >
           Pay Now
         </Button>
-      </form>
+      </div>
     );
   };
 
   const payMobile = () => {
     return (
-      <form onSubmit={handleSubmit}>
+      <div>
         <TextField
           type="number"
           variant="outlined"
@@ -266,16 +266,12 @@ export default function Payment() {
           sx={{ p: 1.5, m: 3 }}
           color="success"
           variant="contained"
+          type="submit"
           startIcon={<PaidIcon />}
-          onClick={() => {
-            pay();
-            deleteCart();
-            goto();
-          }}
         >
           Pay Now
         </Button>
-      </form>
+      </div>
     );
   };
 
@@ -378,35 +374,36 @@ export default function Payment() {
                   sx={{ width: 600, mb: 2 }}
                   onChange={handleChange}
                 />
-              </form>
-              <FormGroup sx={{ alignItems: "center" }}>
-                <FormControlLabel
-                  id="phone"
-                  control={
-                    <MobileSwitch
-                      sx={{ m: 1 }}
-                      defaultUnchecked
-                      onChange={(e) => {
-                        setMobile(e.target.checked);
-                        if (e.target.checked) {
-                          setLabel("Pay by Mobile");
-                        } else {
-                          setLabel("Pay by Card");
-                        }
-                        console.log(mobile);
-                      }}
-                    />
-                  }
-                  label={label}
-                />
-                {/* <FormControlLabel
+
+                <FormGroup sx={{ alignItems: "center" }}>
+                  <FormControlLabel
+                    id="phone"
+                    control={
+                      <MobileSwitch
+                        sx={{ m: 1 }}
+                        defaultUnchecked
+                        onChange={(e) => {
+                          setMobile(e.target.checked);
+                          if (e.target.checked) {
+                            setLabel("Pay by Mobile");
+                          } else {
+                            setLabel("Pay by Card");
+                          }
+                          console.log(mobile);
+                        }}
+                      />
+                    }
+                    label={label}
+                  />
+                  {/* <FormControlLabel
                   id="card"
                   control={<MobileSwitch sx={{ m: 1 }} defaultChecked />}
                   label="Pay by Card"
                 /> */}
-              </FormGroup>
-              <br />
-              {mobile ? payMobile() : payCard()}
+                </FormGroup>
+                <br />
+                {mobile ? payMobile() : payCard()}
+              </form>
 
               <Grid></Grid>
             </Box>
