@@ -133,14 +133,14 @@ export default function Payment() {
           variant="outlined"
           label="Card Holders Name"
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
         />
         <TextField
           type="number"
           variant="outlined"
           label="Card Number"
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
           value={cardNo}
           onChange={(e) => {
             if (e.target.value < 0) {
@@ -159,22 +159,28 @@ export default function Payment() {
             shrink: true,
           }}
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
           value={total.toLocaleString("en-US")}
         />
         <TextField
           type="date"
           variant="outlined"
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
         />
         <TextField
           type="number"
           variant="outlined"
           label="CVC"
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
+          onInput={(e) => {
+            e.target.value = Math.max(0, parseInt(e.target.value))
+              .toString()
+              .slice(0, 3);
+          }}
         />
+        <br/>
         <Button
           sx={{ p: 1.5, m: 3 }}
           color="success"
@@ -198,8 +204,12 @@ export default function Payment() {
           variant="outlined"
           label="Mobile Number"
           required
-          sx={{ width: 400, mb: 2 }}
-          value={cardNo}
+          sx={{ width: 600, mb: 2 }}
+          onInput={(e) => {
+            e.target.value = Math.max(0, parseInt(e.target.value))
+              .toString()
+              .slice(0, 10);
+          }}
           onChange={(e) => {
             if (e.target.value < 0) {
               setCardNo(0);
@@ -208,6 +218,7 @@ export default function Payment() {
             }
           }}
         />
+
         <TextField
           type="text"
           variant="outlined"
@@ -217,10 +228,9 @@ export default function Payment() {
             shrink: true,
           }}
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
           value={total.toLocaleString("en-US")}
         />
-
         <TextField
           type="number"
           variant="outlined"
@@ -231,8 +241,9 @@ export default function Payment() {
               .slice(0, 6);
           }}
           required
-          sx={{ width: 400, mb: 2 }}
+          sx={{ width: 600, mb: 2 }}
         />
+        <br/>
         <Button
           sx={{ p: 1.5, m: 3 }}
           color="success"
@@ -253,7 +264,7 @@ export default function Payment() {
       <ResponsiveAppBarNew badge={badge} />
       <center>
         <Container sx={{ mt: 15 }}>
-          <Paper elevation={7} sx={{ maxWidth: 450 }}>
+          <Paper elevation={7} sx={{ maxWidth: 700 }}>
             <Box sx={{ m: 4 }}>
               <br></br>
               <Typography
@@ -268,7 +279,23 @@ export default function Payment() {
                 Please enter your payment details
               </Typography>
               <br />
-              <FormGroup>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Your Name"
+                  required
+                  sx={{ width: 600, mb: 2 }}
+                />
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Your Address"
+                  required
+                  sx={{ width: 600, mb: 2 }}
+                />
+              </form>
+              <FormGroup sx={{ alignItems: "center" }}>
                 <FormControlLabel
                   id="phone"
                   control={
