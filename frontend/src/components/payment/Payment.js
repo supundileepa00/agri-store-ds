@@ -21,6 +21,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import PaidIcon from "@mui/icons-material/Paid";
+import Swal from "sweetalert2";
 
 const MobileSwitch = styled((props) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -83,10 +84,26 @@ export default function Payment() {
   const [userID, setUserID] = useState("");
   const [label, setLabel] = useState("Pay by Card");
   const [badge, setBadge] = useState(0);
+  const [user, setUser] = useState([
+    {
+      name: "",
+      phone: "",
+      address: "",
+      pin: "",
+      amount: "Rs. " + total.toLocaleString("en-US"),
+    },
+  ]);
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {};
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   useEffect(() => {
     function getCart() {
@@ -160,7 +177,7 @@ export default function Payment() {
           }}
           required
           sx={{ width: 600, mb: 2 }}
-          value={total.toLocaleString("en-US")}
+          value={"Rs. " + total.toLocaleString("en-US")}
         />
         <TextField
           type="date"
@@ -180,14 +197,16 @@ export default function Payment() {
               .slice(0, 3);
           }}
         />
-        <br/>
+        <br />
         <Button
           sx={{ p: 1.5, m: 3 }}
           color="success"
           variant="contained"
           startIcon={<PaidIcon />}
           onClick={() => {
-            navigate("/allItems");
+            pay();
+            deleteCart();
+            goto();
           }}
         >
           Pay Now
@@ -210,13 +229,7 @@ export default function Payment() {
               .toString()
               .slice(0, 10);
           }}
-          onChange={(e) => {
-            if (e.target.value < 0) {
-              setCardNo(0);
-            } else {
-              setCardNo(e.target.value);
-            }
-          }}
+          onChange={handleChange}
         />
 
         <TextField
@@ -229,7 +242,7 @@ export default function Payment() {
           }}
           required
           sx={{ width: 600, mb: 2 }}
-          value={total.toLocaleString("en-US")}
+          value={"Rs. " + total.toLocaleString("en-US")}
         />
         <TextField
           type="number"
@@ -242,21 +255,86 @@ export default function Payment() {
           }}
           required
           sx={{ width: 600, mb: 2 }}
+          onChange={handleChange}
         />
-        <br/>
+        <br />
         <Button
           sx={{ p: 1.5, m: 3 }}
           color="success"
           variant="contained"
           startIcon={<PaidIcon />}
           onClick={() => {
-            navigate("/allItems");
+            pay();
+            deleteCart();
+            goto();
           }}
         >
           Pay Now
         </Button>
       </form>
     );
+  };
+
+  const pay = () => {
+    axios
+      .post("http://localhost:5500/agri/paymentService/pay", user)
+      .then((res) => {
+        console.log(res.data);
+        setOpen(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (user.phone !== "") {
+      axios
+        .post("http://localhost:5500/agri/paymentService/mobile/pay", user)
+        .then((res) => {
+          console.log(res.data);
+          setOpen(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    axios
+      .post("http://localhost:5500/agri/deliveryService", user)
+      .then((res) => {
+        console.log(res.data);
+        setOpen(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteCart = () => {
+    axios
+      .delete(
+        "http://localhost:5500/agri/carts/delete/" +
+          localStorage.getItem("userID")
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const goto = () => {
+    Swal.fire({
+      title: "Success",
+      text: "Payment Successful",
+      icon: "success",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#3085d6",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/allItems");
+      }
+    });
   };
 
   return (
@@ -286,6 +364,7 @@ export default function Payment() {
                   label="Your Name"
                   required
                   sx={{ width: 600, mb: 2 }}
+                  onChange={handleChange}
                 />
                 <TextField
                   type="text"
@@ -293,6 +372,7 @@ export default function Payment() {
                   label="Your Address"
                   required
                   sx={{ width: 600, mb: 2 }}
+                  onChange={handleChange}
                 />
               </form>
               <FormGroup sx={{ alignItems: "center" }}>
