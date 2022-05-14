@@ -370,6 +370,7 @@ export default function Payment() {
                   type="text"
                   variant="outlined"
                   label="Your Address"
+                  multiline
                   required
                   sx={{ width: 600, mb: 2 }}
                   onChange={handleChange}
