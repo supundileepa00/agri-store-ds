@@ -163,6 +163,11 @@ export default function Payment() {
           required="true"
           sx={{ width: 600, mb: 2 }}
           value={cardNo}
+          onInput={(e) => {
+            e.target.value = Math.max(0, parseInt(e.target.value))
+              .toString()
+              .slice(0, 16);
+          }}
           onChange={(e) => {
             if (e.target.value < 0) {
               setCardNo(0);
@@ -357,7 +362,7 @@ export default function Payment() {
                 Please enter your payment details
               </Typography>
               <br />
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} action="/allItems">
                 <TextField
                   type="text"
                   variant="outlined"
