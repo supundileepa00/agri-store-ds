@@ -186,7 +186,7 @@ export default function Payment() {
         <TextField
           type="month"
           variant="outlined"
-          label="Month/Year"
+          label="Expire Date"
           required
           InputLabelProps={{
             shrink: true,
@@ -370,8 +370,8 @@ export default function Payment() {
                   type="text"
                   variant="outlined"
                   label="Your Address"
-                  multiline
                   required
+                  multiline
                   sx={{ width: 600, mb: 2 }}
                   onChange={handleChange}
                 />

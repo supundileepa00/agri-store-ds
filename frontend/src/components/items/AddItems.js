@@ -17,6 +17,7 @@ function AddItem() {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
   const [showText, setShowText] = useState(false);
+
   let navigate = useNavigate();
 
   useEffect(() => {
