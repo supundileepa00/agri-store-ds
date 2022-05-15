@@ -9,6 +9,8 @@ router.route("/pay").post((req, res) => {
   res
     .status(202)
     .json({ paymentStatus: "success : email & sms sent", amount: amount });
+
+  console.log("Payment Success");
 });
 
 module.exports = router;

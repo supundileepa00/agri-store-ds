@@ -12,6 +12,7 @@ router.route("/pay").post((req, res) => {
       amount: amount,
       MobileNumber: mobileNumber,
     });
+    console.log("Payment successful");
   } else {
     res.status(202).json({
       paymentStatus: "unsuccesfull",

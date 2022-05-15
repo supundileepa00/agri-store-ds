@@ -14,6 +14,7 @@ router.route("/").post((req, res) => {
       name: name,
       mobile: mobileNumber,
     });
+    console.log("delivery successful");
   } else {
     res.status(404).json({
       delivery: "error",
