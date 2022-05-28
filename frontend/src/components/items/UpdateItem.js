@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Input from "@mui/material/Input";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ResponsiveAppBar from "../common/ResponsiveAppBar";
 
 function UpdateItem() {
   const [loading, setLoading] = useState(false);
@@ -76,6 +77,7 @@ function UpdateItem() {
   return (
     <div>
       {/* <ResponsiveAppBar /> */}
+      <ResponsiveAppBar />
       <Container>
         <Paper elevation={7} sx={{ mt: 20 }}>
           <Box sx={{ m: 5 }}>
