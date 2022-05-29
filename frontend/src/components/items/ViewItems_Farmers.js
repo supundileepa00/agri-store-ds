@@ -222,7 +222,7 @@ function ViewItems_Farmers() {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <CardActions>
+            {/* <CardActions>
               <Button
                 variant="outlined"
                 startIcon={<AddShoppingCartIcon />}
@@ -232,7 +232,7 @@ function ViewItems_Farmers() {
               >
                 Add to Cart
               </Button>
-            </CardActions>
+            </CardActions> */}
           </Card>
         ))}
       </Grid>
